@@ -2,11 +2,23 @@
 {% load static %}
 
 {% block title %}
-	MyAPP | Home
+	Pollster | Home
 {% endblock %}
 
 {% block content %}
-	<h1>Hello World!</h1>
+	<h1 class="text-center mb-3">Poll Questions</h1>
+	
+	{% for question in questions %}
+		<div class="card mb-3">
+			<div class="card-body">
+				<p class="lead">{{ question.question_text }}</p>
+				<a href="{% url 'polls:detail' question.id %}" class="btn btn-primary btn-sm mr-2">Vote Now</a>
+				<a href="{% url 'polls:results' question.id %}" class="btn btn-secondary btn-sm">Results</a>
+			</div>
+		</div>
+	{% empty %}
+		<h2>No polls available!!</h2>
+	{% endfor %}
 {% endblock %}
 
 {% block extra_js %}
